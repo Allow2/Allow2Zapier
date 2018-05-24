@@ -1,11 +1,11 @@
 const getAccessToken = (z, bundle) => {
-    const promise = z.request('${process.env.BASE_URL}/useroauth2/token', {
+    const promise = z.request(process.env.BASE_URL + '/uauth2/token', {
         method: 'POST',
-            body: {
+        body: {
             code: bundle.inputData.code,
-                client_id: process.env.CLIENT_ID,
-                client_secret: process.env.CLIENT_SECRET,
-                grant_type: 'authorization_code'
+            client_id: process.env.CLIENT_ID,
+            client_secret: process.env.CLIENT_SECRET,
+            grant_type: 'authorization_code'
         },
         headers: {
             'content-type': 'application/x-www-form-urlencoded'
@@ -27,13 +27,13 @@ const getAccessToken = (z, bundle) => {
 };
 
 const refreshAccessToken = (z, bundle) => {
-    const promise = z.request('${process.env.BASE_URL}/useroauth2/token', {
+    const promise = z.request(process.env.BASE_URL +'/uauth2/token', {
         method: 'POST',
-            body: {
+        body: {
             refresh_token: bundle.authData.refresh_token,
-                client_id: process.env.CLIENT_ID,
-                client_secret: process.env.CLIENT_SECRET,
-                grant_type: 'refresh_token'
+            client_id: process.env.CLIENT_ID,
+            client_secret: process.env.CLIENT_SECRET,
+            grant_type: 'refresh_token'
         },
         headers: {
             'content-type': 'application/x-www-form-urlencoded'
@@ -59,7 +59,7 @@ const testAuth = (z /*, bundle*/) => {
     // every user will have access to, such as an account or profile endpoint like /me.
     const promise = z.request({
         method: 'GET',
-        url: '${process.env.BASE_URL}/me'
+        url: process.env.BASE_URL + '/me'
     });
 
     // This method can return any truthy value to indicate the credentials are valid.
@@ -79,12 +79,12 @@ module.exports = {
         // Zapier generates the state and redirect_uri, you are responsible for providing the rest.
         // Note: can also be a function that returns a string
         authorizeUrl: {
-            url: '${process.env.BASE_URL}/oauth2/authorize',
+            url: process.env.BASE_URL + '/uauth2/authorize',
             params: {
-                client_id: '{{process.env.CLIENT_ID}}',
-                    state: '{{bundle.inputData.state}}',
-                    redirect_uri: '{{bundle.inputData.redirect_uri}}',
-                    response_type: 'code'
+                client_id: process.env.CLIENT_ID,
+                state: '{{bundle.inputData.state}}',
+                redirect_uri: '{{bundle.inputData.redirect_uri}}',
+                response_type: 'code'
             }
         },
 
@@ -109,5 +109,5 @@ module.exports = {
     test: testAuth,
 
     // assuming "username" is a key returned from the test
-    connectionLabel: '{{username}}'
+    //connectionLabel: '{{username}}'
 };

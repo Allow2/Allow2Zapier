@@ -1,7 +1,10 @@
+const StopTimer = require('./creates/stop_timer');
+const StartTimer = require('./creates/start_timer');
+const Increment = require('./creates/increment');
 
 process.env.BASE_URL = process.env.BASE_URL || 'https://staging-api.allow2.com';
-process.env.CLIENT_ID = process.env.CLIENT_ID || 'zapier';
-process.env.CLIENT_SECRET = process.env.CLIENT_SECRET || 'asdf';
+process.env.CLIENT_ID = /*process.env.CLIENT_ID || */ 'zapier';
+process.env.CLIENT_SECRET = /*process.env.CLIENT_SECRET ||*/ '4355ef48-01ee-41ac-a59c-97cef10e78bd';
 
 const authentication = require('./authentication');
 
@@ -45,6 +48,9 @@ const App = {
 
     // If you want your creates to show up, you better include it here!
     creates: {
+    [StopTimer.key]: StopTimer,
+    [StartTimer.key]: StartTimer,
+    [Increment.key]: Increment,
     }
 };
 
